@@ -6,6 +6,8 @@ public class CubeManager : MonoBehaviour {
     private GameObject cubeHolder;
     private GameObject[] L, R, C;
     private GameObject clickedObject;
+    private int animation;
+    private int animateFrames;
     public void setClickedObj(GameObject obj)
     {
         clickedObject = obj;
@@ -60,7 +62,9 @@ public class CubeManager : MonoBehaviour {
                 o1.transform.SetParent(cubeHolder.transform);
 
             }
-            cubeHolder.transform.Rotate(new Vector3(0, 90, 0));
+            //cubeHolder.transform.Rotate(new Vector3(0, 90, 0));
+            animation = 1;
+            
 
         }
 
@@ -71,7 +75,8 @@ public class CubeManager : MonoBehaviour {
                 o1.transform.SetParent(cubeHolder.transform);
 
             }
-            cubeHolder.transform.Rotate(new Vector3(0, -90, 0));
+            //cubeHolder.transform.Rotate(new Vector3(0, -90, 0));
+            animation = 2;
 
         }
 
@@ -84,7 +89,8 @@ public class CubeManager : MonoBehaviour {
 
             }
 
-            cubeHolder.transform.Rotate(new Vector3(0, 0, 90));
+            //cubeHolder.transform.Rotate(new Vector3(0, 0, 90));
+            animation = 3;
 
         }
         else if (direction == "south")
@@ -96,15 +102,16 @@ public class CubeManager : MonoBehaviour {
 
             }
 
-            cubeHolder.transform.Rotate(new Vector3(0, 0, -90));
+            //cubeHolder.transform.Rotate(new Vector3(0, 0, -90));
+            animation = 4;
 
         }
+        StartCoroutine(rotator());
 
 
 
 
-
-        cubeHolder.transform.DetachChildren();
+        //cubeHolder.transform.DetachChildren();
 
 
     }
@@ -112,6 +119,7 @@ public class CubeManager : MonoBehaviour {
 
 
     void Start () {
+        animateFrames = 10;
         L = new GameObject[4];
         R = new GameObject[4];
         C = new GameObject[4];
@@ -133,13 +141,47 @@ public class CubeManager : MonoBehaviour {
         
 
         cubeHolder = GameObject.Find("CubeHolder");
+        animation = 0;
 
 
     }
 
     // Update is called once per frame
     void Update () {
+        //if (animation == 1 && cubeHolder.transform.rotation)
+        //{
+        //    cubeHolder.transform.Rotate(new Vector3(0, 90*Time.deltaTime, 0));
+        //}
        // cubeHolder.transform.Rotate(new Vector3(10,0,0));
+       
 		
 	}
+
+
+    IEnumerator rotator()
+    {
+        Debug.Log("Dasd");
+        for (int i = 0; i < 45; i++) // will run the loop 45 times
+        {
+            if(animation == 1) {
+                cubeHolder.transform.Rotate(new Vector3(0, 2, 0));
+            }
+            if (animation == 2)
+            {
+                cubeHolder.transform.Rotate(new Vector3(0, -2, 0));
+            }
+            if (animation == 3)
+            {
+                cubeHolder.transform.Rotate(new Vector3(0, 0, 2));
+            }
+            if (animation == 4)
+            {
+                cubeHolder.transform.Rotate(new Vector3(0, 0, -2));
+            }
+
+            yield return new WaitForSeconds(0.0001f); // whatever time you want between loop iterations in seconds put in brackets so 1.0 would be on for 1 second then turn off 0.1 would be a tenth of a second
+        }
+        cubeHolder.transform.DetachChildren();
+        yield break; // will stop the co-routine after all 45 iterations
+    }
 }
