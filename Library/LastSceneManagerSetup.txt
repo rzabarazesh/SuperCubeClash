@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Highlight.unity
+- path: Assets/Scenes/mainlvl.unity
   isLoaded: 1
   isActive: 1
