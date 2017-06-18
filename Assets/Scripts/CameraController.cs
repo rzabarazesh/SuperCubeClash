@@ -57,16 +57,16 @@ public class CameraController : MonoBehaviour
         }
 
 
-        //if (Input.GetMouseButton(1))
-        //{
-        currentX += Input.GetAxis("Mouse X");
+        if (Input.GetMouseButton(1))
+        {
+            currentX += Input.GetAxis("Mouse X");
         currentY += Input.GetAxis("Mouse Y");
         distance += Input.GetAxis("Mouse ScrollWheel");
         distance = Mathf.Clamp(distance, MIN_DIST, MAX_DIST);
-        //}
-
-
     }
+
+
+}
 
     private void LateUpdate()
     {
