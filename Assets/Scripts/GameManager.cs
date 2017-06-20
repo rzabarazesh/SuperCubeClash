@@ -42,7 +42,12 @@ public class GameManager : MonoBehaviour {
 
     public void rotateBlocks(string direction)
     {
-        Debug.Log(clickedObject.name + "************");
+        //---unhighlight everything
+        foreach (GameObject quad in getquads())
+        {
+            quad.GetComponent<QuadManager>().mode = "idle";
+        }
+        //---
         cubeHolder.transform.rotation = Quaternion.identity;
         cubeHolder.transform.DetachChildren();
         int x = 0, y = 0, z = 0;
@@ -270,36 +275,47 @@ public class GameManager : MonoBehaviour {
     IEnumerator rotator()
     {
        
-        for (int i = 0; i < 45; i++) // will run the loop 45 times
+        for (int i = 0; i < 18; i++) // will run the loop 45 times
         {
             if (animation == 1)
             {
-                cubeHolder.transform.Rotate(new Vector3(0, 2, 0));
+                cubeHolder.transform.Rotate(new Vector3(0, 5, 0));
             }
             if (animation == 2)
             {
-                cubeHolder.transform.Rotate(new Vector3(0, -2, 0));
+                cubeHolder.transform.Rotate(new Vector3(0, -5, 0));
             }
             if (animation == 3)
             {
-                cubeHolder.transform.Rotate(new Vector3(0, 0, 2));
+                cubeHolder.transform.Rotate(new Vector3(0, 0, 5));
             }
             if (animation == 4)
             {
-                cubeHolder.transform.Rotate(new Vector3(0, 0, -2));
+                cubeHolder.transform.Rotate(new Vector3(0, 0, -5));
             }
             if (animation == 5)
             {
-                cubeHolder.transform.Rotate(new Vector3(2, 0, 0));
+                cubeHolder.transform.Rotate(new Vector3(5, 0, 0));
             }
             if (animation == 6)
             {
-                cubeHolder.transform.Rotate(new Vector3(-2, 0, 0));
+                cubeHolder.transform.Rotate(new Vector3(-5, 0, 0));
             }
 
-            yield return new WaitForSeconds(0.000001f); // whatever time you want between loop iterations in seconds put in brackets so 1.0 would be on for 1 second then turn off 0.1 would be a tenth of a second
+            yield return new WaitForSeconds(0.05f); // whatever time you want between loop iterations in seconds put in brackets so 1.0 would be on for 1 second then turn off 0.1 would be a tenth of a second
         }
         cubeHolder.transform.DetachChildren();
         yield break; // will stop the co-routine after all 45 iterations
+    }
+
+    public IEnumerator MoveObject(GameObject obj, Vector3 target, float overTime)
+    {
+        float startTime = Time.time;
+        while (Time.time < startTime + overTime)
+        {
+            obj.transform.position = Vector3.Lerp(obj.transform.position, target, (Time.time - startTime) / overTime);
+            yield return null;
+        }
+        //obj.transform.position = target;
     }
 }

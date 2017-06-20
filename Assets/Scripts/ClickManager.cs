@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ClickManager : MonoBehaviour {
+public class ClickManager : MonoBehaviour,IPointerClickHandler {
     private GameManager cm;
     //public Material selectedMat;
     private Material beforeMat;
@@ -21,9 +23,10 @@ public class ClickManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        
+        
     }
-    private List<GameObject> movePiece(int face)
+    private List<GameObject> findAdjacent(int face)
     {
         List<GameObject> adjacentTiles = new List<GameObject>();
         RaycastHit hit;
@@ -34,8 +37,7 @@ public class ClickManager : MonoBehaviour {
 
                 if (Physics.Raycast(transform.position + new Vector3(0, 2, 1), new Vector3(0, -1, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
                     
                 }
@@ -43,22 +45,22 @@ public class ClickManager : MonoBehaviour {
 
                 if (Physics.Raycast(transform.position + new Vector3(0, 2, -1), new Vector3(0, -1, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                   
                 }
                 if (Physics.Raycast(transform.position + new Vector3(1, 2, 0), new Vector3(0, -1, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                   
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(-1, 2, 0), new Vector3(0, -1, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
                 break;
             //Y down
@@ -66,31 +68,31 @@ public class ClickManager : MonoBehaviour {
 
                 if (Physics.Raycast(transform.position + new Vector3(0, -2, 1), new Vector3(0, 1, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                   
                 }
 
 
                 if (Physics.Raycast(transform.position + new Vector3(0, -2, -1), new Vector3(0, 1, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                   
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(1, -2, 0), new Vector3(0, 1, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                   
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(-1, -2, 0), new Vector3(0, 1, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
                 break;
 
@@ -98,31 +100,31 @@ public class ClickManager : MonoBehaviour {
             case 4:
                 if (Physics.Raycast(transform.position + new Vector3(1, 0, 2), new Vector3(0, 0, -1), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                   
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
 
                 if (Physics.Raycast(transform.position + new Vector3(-1, 0, 2), new Vector3(0, 0, -1), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                   
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(0, 1, 2), new Vector3(0, 0, -1), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(0, -1, 2), new Vector3(0, 0, -1), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
                 break;
 
@@ -130,31 +132,31 @@ public class ClickManager : MonoBehaviour {
             case 1:
                 if (Physics.Raycast(transform.position + new Vector3(1, 0, -2), new Vector3(0, 0, 1), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                   
                 }
 
 
                 if (Physics.Raycast(transform.position + new Vector3(-1, 0, -2), new Vector3(0, 0, 1), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(0, 1, -2), new Vector3(0, 0, 1), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(0, -1, -2), new Vector3(0, 0, 1), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                   
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
                 break;
 
@@ -162,61 +164,61 @@ public class ClickManager : MonoBehaviour {
             case 5:
                 if (Physics.Raycast(transform.position + new Vector3(2, 0, 1), new Vector3(-1, 0, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
 
                 if (Physics.Raycast(transform.position + new Vector3(2, 0, -1), new Vector3(-1, 0, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(2, 1, 0), new Vector3(-1, 0, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(2, -1, 0), new Vector3(-1, 0, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
                 break;
             //X Down
             case 3:
                 if (Physics.Raycast(transform.position + new Vector3(-2, 0, 1), new Vector3(1, 0, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(-2, 0, -1), new Vector3(1, 0, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(-2, 1, 0), new Vector3(1, 0, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+                    
                 }
 
                 if (Physics.Raycast(transform.position + new Vector3(-2, -1, 0), new Vector3(1, 0, 0), out hit, 100.0f))
                 {
-                    Debug.Log("Found an object - distance: " + hit.collider.name);
+                    
                     adjacentTiles.Add(hit.collider.gameObject);
-                    //hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.black;
+
                 }
                 break;
         }
@@ -255,74 +257,102 @@ public class ClickManager : MonoBehaviour {
 
 
     }
-    private void OnMouseDown()
+    private void unHighlightAll()
     {
+        foreach (GameObject quad in cm.getquads())
+        {
 
+            quad.GetComponent<QuadManager>().mode = "idle";
+        }
+    }
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        GameObject clickObj;
         selectedObj = this.transform.gameObject;
         cm.setClickedObj(this.transform.gameObject);
         RaycastHit target;
-        
+
         Ray ray_casting = Camera.main.ScreenPointToRay(Input.mousePosition);
         GameObject selectedPiece = null;
         if (Physics.Raycast(ray_casting, out target))
         {
-            Debug.Log("Got  : " + target.collider.gameObject.tag);
-            if (target.collider.gameObject.CompareTag("piece"))
-            {
+            clickObj = target.collider.gameObject;
 
-                cm.setSelectedPiece(target.collider.gameObject);
-                foreach (GameObject o in movePiece(findFace(target.collider.gameObject.transform.parent.gameObject)))
-                {   
-                    
-                    cm.addquad(o);
-                    print(o.name);
-                    if (o.GetComponent<QuadManager>().mode != "hold")
-                        o.GetComponent<QuadManager>().mode = "hold";
-                    else
+            // if clicked on a piece
+            if (clickObj.CompareTag("piece"))
+            {
+                unHighlightAll();
+                cm.setSelectedPiece(clickObj);
+                foreach (GameObject o in findAdjacent(findFace(clickObj.transform.parent.gameObject)))
+                {
+                    if (o.CompareTag("tile"))
                     {
-                        o.GetComponent<QuadManager>().mode = "idle";
+                        cm.addquad(o);
+                        print(o.name);
+                        if (o.GetComponent<QuadManager>().mode != "hold")
+                            o.GetComponent<QuadManager>().mode = "hold";
+                        else
+                        {
+                            o.GetComponent<QuadManager>().mode = "idle";
+                        }
                     }
-                   
+                    else if (o.CompareTag("piece"))
+                    {
+
+                    }
+                    else if (o.CompareTag("enemy"))
+                    {
+                        cm.addquad(o.transform.parent.gameObject);
+
+                        if (o.transform.parent.gameObject.GetComponent<QuadManager>().mode != "hold")
+                            o.transform.parent.gameObject.GetComponent<QuadManager>().mode = "hold";
+                        else
+                        {
+                            o.transform.parent.gameObject.GetComponent<QuadManager>().mode = "idle";
+                        }
+                    }
+
+
+
                 }
             }
+            // if clicked on a empty tile
             else if (target.collider.GetType() == typeof(MeshCollider))
-            {
-                if (target.collider.gameObject.GetComponent<QuadManager>().mode == "idle")
+            {   //tile is idle
+                if (clickObj.GetComponent<QuadManager>().mode == "idle")
                 {
                     cm.setFace(findFace(target.collider.gameObject));
-                    foreach (GameObject quad in cm.getquads())
-                    {
 
-                        Debug.Log (quad.name);
-                        quad.GetComponent<QuadManager>().mode = "idle";
-                    }
                 }
-                else if (target.collider.gameObject.GetComponent<QuadManager>().mode == "hold")
+                //tile is in moving mode
+                else if (clickObj.GetComponent<QuadManager>().mode == "hold")
                 {
-                    
-                    cm.getSelectedPiece().transform.SetParent(target.collider.gameObject.transform);
-                    cm.getSelectedPiece().transform.position = target.collider.gameObject.transform.position;
+
+
+                    cm.getSelectedPiece().transform.SetParent(clickObj.transform);
+
+                    StartCoroutine(cm.MoveObject(cm.getSelectedPiece(), clickObj.transform.position, 1f));
+                    //cm.getSelectedPiece().transform.position = clickObj.transform.position;
+
                 }
+                unHighlightAll();
+
                 
-                
-                Debug.Log("yoo");
             }
-            else if(target.collider.gameObject.CompareTag("selector"))
+            else if (clickObj.CompareTag("selector"))
             {
-                Debug.Log("yeee");
+               
             }
-            
+
             if (true)
             {
                 selectedPiece = target.collider.gameObject;
             }
-               
+
         }
-        
-        
-        
+
 
     }
- 
-
 }

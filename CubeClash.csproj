@@ -82,15 +82,17 @@
     <Compile Include="Assets\OutlineEffect\LinkedSet.cs" />
     <Compile Include="Assets\OutlineEffect\Outline.cs" />
     <Compile Include="Assets\OutlineEffect\OutlineEffect.cs" />
-    <Compile Include="Assets\PZoom.cs" />
-    <Compile Include="Assets\QuadManager.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\ClickManager.cs" />
     <Compile Include="Assets\Scripts\Cubefinder.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\PZoom.cs" />
+    <Compile Include="Assets\Scripts\QuadManager.cs" />
+    <Compile Include="Assets\Scripts\ThirdPersonCamera.cs" />
+    <Compile Include="Assets\Scripts\battle.cs" />
     <Compile Include="Assets\Scripts\collidorScript.cs" />
     <Compile Include="Assets\Scripts\findMoves.cs" />
-    <Compile Include="Assets\ThirdPersonCamera.cs" />
+    <Compile Include="Assets\enemyController.cs" />
     <Compile Include="Assets\moveController.cs" />
   </ItemGroup>
   <ItemGroup>
