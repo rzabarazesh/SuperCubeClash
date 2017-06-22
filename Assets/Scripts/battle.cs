@@ -218,10 +218,16 @@ public class battle : MonoBehaviour {
         Ai_move();
         btns_cover.enabled = false;
     }
+    IEnumerator end_game()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Destroy(gameObject);
+    }
     public void rs() {
         
         if (hps[1] <= 0)
         {
+            hps[1] = 0;
             game_message.text = game_message.text + "\nYou win!";
             player1_action.enabled = false;
             player2_action.enabled = false;     
@@ -230,6 +236,7 @@ public class battle : MonoBehaviour {
         }
         else if (hps[0] <= 0)
         {
+            hps[0] = 0;
             game_message.text = game_message.text + "\nYou lose!";
             player1_action.enabled = false;
             player2_action.enabled = false;
@@ -258,7 +265,7 @@ public class battle : MonoBehaviour {
         player2_mp.transform.localScale = new Vector2(((mps[1] <= 0) ? 0 : mps[1] / 40.0f), 1);
         if (game_finish)
         {
-            Destroy(gameObject);
+            StartCoroutine(end_game());
         }
     }
     /*

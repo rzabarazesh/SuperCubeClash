@@ -54,7 +54,8 @@ public class ThirdPersonCamera : MonoBehaviour
                 var offset = this.transform.position - focus;
 
                 // Rotate in the X axis
-                transform.RotateAround(focus, target.transform.up, mouseSensitivity * mouseX);
+                transform.RotateAround(focus, target.transform.up, mouseSensitivity * mouseX/3);
+
                 if (Mathf.Abs(offset.x) < degreeLimit && Mathf.Abs(offset.z) < degreeLimit && offset.y > 0 && mouseY < 0)
                 {
                     return;

@@ -7,14 +7,22 @@ public class GameManager : MonoBehaviour {
     private GameObject[] L, R, C;
     private GameObject clickedObject;
     private GameObject selectedPiece;
+    private List<GameObject> enemyList;
     private int animation;
     private int animateFrames;
     public List<GameObject> changedQuads;
+    public GameObject WinCanvas;
     private int face;
+    private bool gameFinished;
     public void setClickedObj(GameObject obj)
     {
         clickedObject = obj;
     }
+    public void clearQuads()
+    {
+        changedQuads.Clear();
+    }
+
     public void setFace(int f)
     {
         face = f;
@@ -46,7 +54,9 @@ public class GameManager : MonoBehaviour {
         foreach (GameObject quad in getquads())
         {
             quad.GetComponent<QuadManager>().mode = "idle";
+            
         }
+        clearQuads();
         //---
         cubeHolder.transform.rotation = Quaternion.identity;
         cubeHolder.transform.DetachChildren();
@@ -255,6 +265,9 @@ public class GameManager : MonoBehaviour {
         animation = 0;
 
         changedQuads = new List<GameObject>();
+        enemyList = new List<GameObject>();
+        enemyList.Add(GameObject.Find("enemy"));
+        gameFinished = false;
 
 
 
@@ -267,7 +280,11 @@ public class GameManager : MonoBehaviour {
         //    cubeHolder.transform.Rotate(new Vector3(0, 90*Time.deltaTime, 0));
         //}
        // cubeHolder.transform.Rotate(new Vector3(10,0,0));
-       
+        if(enemyList.Contains(null) && !gameFinished)
+        {
+            Instantiate(WinCanvas);
+            gameFinished = true;
+        }
 		
 	}
 

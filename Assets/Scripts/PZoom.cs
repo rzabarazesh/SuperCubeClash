@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PZoom : MonoBehaviour
 {
-
+    //static Text tx;
     float previousDistance;
     float zoomSpeed = 1.0f;
+    private void Start()
+    {
+        //tx = GameObject.Find("txt").GetComponent<Text>();
+        //tx.text = "initial";
+    }
 
     // Update is called once per frame
     void Update()
@@ -25,7 +31,10 @@ public class PZoom : MonoBehaviour
             distance = Vector2.Distance(touch1, touch2);
 
             float pinchAmount = (previousDistance - distance) * zoomSpeed * Time.deltaTime;
-            Camera.main.transform.Translate(0, 0, -pinchAmount);
+            //tx.text = pinchAmount.ToString();
+            //tx.text = Camera.main.transform.position[0] + "//" + Camera.main.transform.position[1] + "//" + Camera.main.transform.position[2];
+            if(Camera.main.transform.position[2] < 15 && Camera.main.transform.position[2] > -9.5)
+                Camera.main.transform.Translate(0, 0, -pinchAmount);
 
             previousDistance = distance;
         }

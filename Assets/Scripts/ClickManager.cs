@@ -6,26 +6,27 @@ using UnityEngine.EventSystems;
 
 public class ClickManager : MonoBehaviour,IPointerClickHandler {
     private GameManager cm;
-    //public Material selectedMat;
-    private Material beforeMat;
+
     private GameObject origin;
-    private GameObject selectedObj;
+    
     public GameObject selector;
     private List<GameObject> quadlist;
+    private static GameObject selectedQuad;
+    public GameObject canvas;
     
+
     void Start () {
         
         origin = GameObject.Find("GameManager");
         cm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //canvas = GameObject.Find("canvas");
+        canvas.SetActive(false);
         quadlist = cm.getquads();
-        selectedObj = null;
+        
+        
     }
 	
-	// Update is called once per frame
-	void Update () {
-        
-        
-    }
+
     private List<GameObject> findAdjacent(int face)
     {
         List<GameObject> adjacentTiles = new List<GameObject>();
@@ -264,19 +265,44 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
 
             quad.GetComponent<QuadManager>().mode = "idle";
         }
+        cm.clearQuads();
     }
+    
+    public void setSelectedQuad(GameObject obj)
+    {
+        canvas.SetActive(false);
+        //addquad(obj);
+        //Debug.Log(selectedObj.GetComponent<QuadManager>().mode);
+        //Debug.Log(obj.GetComponent<QuadManager>().mode);
+        if (selectedQuad != null && selectedQuad != obj)
+        {
+            selectedQuad.GetComponent<QuadManager>().mode = "idle";
+        }
+        selectedQuad = obj;
+        if (obj.GetComponent<QuadManager>().mode != "selected")
+        {
+            obj.GetComponent<QuadManager>().mode = "selected";
+            canvas.SetActive(true);
+        }
+        else
+        {
+            obj.GetComponent<QuadManager>().mode = "idle";
+        }
+        
 
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         GameObject clickObj;
-        selectedObj = this.transform.gameObject;
+        
         cm.setClickedObj(this.transform.gameObject);
         RaycastHit target;
+        LayerMask layermask = 763;
 
         Ray ray_casting = Camera.main.ScreenPointToRay(Input.mousePosition);
         GameObject selectedPiece = null;
-        if (Physics.Raycast(ray_casting, out target))
+        if (Physics.Raycast(ray_casting, out target,500f,layermask))
         {
             clickObj = target.collider.gameObject;
 
@@ -285,6 +311,7 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
             {
                 unHighlightAll();
                 cm.setSelectedPiece(clickObj);
+                setSelectedQuad(clickObj.transform.parent.gameObject);
                 foreach (GameObject o in findAdjacent(findFace(clickObj.transform.parent.gameObject)))
                 {
                     if (o.CompareTag("tile"))
@@ -304,10 +331,11 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
                     }
                     else if (o.CompareTag("enemy"))
                     {
+                        
                         cm.addquad(o.transform.parent.gameObject);
 
-                        if (o.transform.parent.gameObject.GetComponent<QuadManager>().mode != "hold")
-                            o.transform.parent.gameObject.GetComponent<QuadManager>().mode = "hold";
+                        if (o.transform.parent.gameObject.GetComponent<QuadManager>().mode != "enemy")
+                            o.transform.parent.gameObject.GetComponent<QuadManager>().mode = "enemy";
                         else
                         {
                             o.transform.parent.gameObject.GetComponent<QuadManager>().mode = "idle";
@@ -321,15 +349,19 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
             // if clicked on a empty tile
             else if (target.collider.GetType() == typeof(MeshCollider))
             {   //tile is idle
-                if (clickObj.GetComponent<QuadManager>().mode == "idle")
+                if (clickObj.GetComponent<QuadManager>().mode == "idle" || clickObj.GetComponent<QuadManager>().mode == "selected")
                 {
-                    cm.setFace(findFace(target.collider.gameObject));
+                    
+                    cm.setFace(findFace(clickObj));
+                    setSelectedQuad(clickObj);
+                    unHighlightAll();
 
                 }
                 //tile is in moving mode
-                else if (clickObj.GetComponent<QuadManager>().mode == "hold")
+                else if (clickObj.GetComponent<QuadManager>().mode == "hold" || clickObj.GetComponent<QuadManager>().mode == "enemy")
                 {
-
+                    unHighlightAll();
+                    setSelectedQuad(clickObj);
 
                     cm.getSelectedPiece().transform.SetParent(clickObj.transform);
 
@@ -337,7 +369,7 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
                     //cm.getSelectedPiece().transform.position = clickObj.transform.position;
 
                 }
-                unHighlightAll();
+               
 
                 
             }

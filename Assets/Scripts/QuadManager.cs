@@ -4,24 +4,34 @@ using UnityEngine;
 
 public class QuadManager : MonoBehaviour {
     public string mode;
-    private Material mat;
-    private Color col;
     // Use this for initialization
     void Start () {
         GetComponent<cakeslice.Outline>().enabled = false;
         mode = "idle";
-        mat = GetComponent<Renderer>().material;
-        col = GetComponent<Renderer>().material.color;
+
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (mode == "selected")
+        {
+            GetComponent<cakeslice.Outline>().enabled = true;
+            GetComponent<cakeslice.Outline>().color = 2;
+            
+        }
         if (mode == "hold")
         {
-            //GetComponent<Renderer>().material.color = Color.yellow;
             GetComponent<cakeslice.Outline>().enabled = true;
+            GetComponent<cakeslice.Outline>().color = 1;
+            
         }
-        if(mode == "idle")
+        if (mode == "enemy")
+        {
+            GetComponent<cakeslice.Outline>().enabled = true;
+            GetComponent<cakeslice.Outline>().color = 0;
+            
+        }
+        if (mode == "idle")
         {
             GetComponent<cakeslice.Outline>().enabled = false;
         }
