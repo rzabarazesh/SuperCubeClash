@@ -266,11 +266,29 @@ public class GameManager : MonoBehaviour {
 
         changedQuads = new List<GameObject>();
         enemyList = new List<GameObject>();
-        enemyList.Add(GameObject.Find("enemy"));
+        enemyList.Add(GameObject.Find("enemy1"));
+        enemyList.Add(GameObject.Find("enemy2"));
         gameFinished = false;
 
 
 
+    }
+    private string checkstate()
+    {
+        int aliveEnemies = 0;
+        foreach (GameObject enemy in enemyList)
+        {
+            if (enemy!= null)
+            {
+                aliveEnemies++;
+            }
+        }
+
+        if (aliveEnemies == 0)
+        {
+            return "win";
+        }
+        return "inprogress";
     }
 
     // Update is called once per frame
@@ -280,7 +298,7 @@ public class GameManager : MonoBehaviour {
         //    cubeHolder.transform.Rotate(new Vector3(0, 90*Time.deltaTime, 0));
         //}
        // cubeHolder.transform.Rotate(new Vector3(10,0,0));
-        if(enemyList.Contains(null) && !gameFinished)
+        if(checkstate()=="win" && !gameFinished)
         {
             Instantiate(WinCanvas);
             gameFinished = true;

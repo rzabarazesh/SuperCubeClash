@@ -33,8 +33,8 @@ public class ThirdPersonCamera : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        //if (Input.touchCount == 1 && Input.touches[0].phase == TouchPhase.Moved)
-        //{
+        if (Input.touchCount == 1 && Input.touches[0].phase == TouchPhase.Moved)
+        {
             var mouseX = Input.GetAxis("Mouse X");
             var mouseY = Input.GetAxis("Mouse Y");
 
@@ -73,43 +73,10 @@ public class ThirdPersonCamera : MonoBehaviour
 
             }
 
-        //}
-
     }
 
+}
 
-    /*
-	 //private const float MIN_DIST = 2.0f;
-	//private const float MAX_DIST = 12.0f;
-    public Transform lookAt;
-    public Transform camTransform;
-    //private Camera cam;
-	//private float distance = 15.0f;
-	//private float currentX = 0.0f;
-	//private float currentY = 0.0f;
-    //public float yLimit = 100.0f;
-	// Use this for initialization
-	void Start () 
-    {
-        camTransform = transform;
-        //cam = Camera.main;
-	}
-	
-	// Update is called once per frame
-	void Update () 
-    {
-		//currentX += Input.GetAxis("Mouse X");
-		//currentY += Input.GetAxis("Mouse Y");
-		//distance += Input.GetAxis("Mouse ScrollWheel");
-		//distance = Mathf.Clamp(distance, MIN_DIST, MAX_DIST);
-		//currentY = Mathf.Clamp(currentY, -yLimit, yLimit);
-	}
-   private void LateUpdate()
-    {
-		//Vector3 dir = new Vector3(0, 0, -distance);
-		//Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
-		//camTransform.position = lookAt.position + rotation * dir;
-		camTransform.LookAt(lookAt.position);
-    }
-    */
+
+
 }
