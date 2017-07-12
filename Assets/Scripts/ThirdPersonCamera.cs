@@ -21,6 +21,7 @@ public class ThirdPersonCamera : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         this.focus = target.transform.position;
     }
 

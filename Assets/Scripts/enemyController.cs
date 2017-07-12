@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class enemyController : MonoBehaviour {
     public GameObject battleCanvas;
-    private GameObject mainCanvas;
+    public int background;
+    private GameManager gm;
     // Use this for initialization
     void Start () {
-        mainCanvas = GameObject.Find("canvas");
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -18,8 +19,16 @@ public class enemyController : MonoBehaviour {
     {
         //mainCanvas.SetActive(false);
         Instantiate(battleCanvas);
+        if (gm.isPowerUp())
+        {
+            battleCanvas.GetComponent<battle>().battle_start(true, background, 1, 200, 100, 1, 100, 100);
+        }
+        else {
+            battleCanvas.GetComponent<battle>().battle_start(true, background, 1, 100, 60, 1, 100, 100);
+        }
         
         battleCanvas.GetComponent<battle>().setPlayerObjects(other.gameObject, this.gameObject);
 
     }
+
 }

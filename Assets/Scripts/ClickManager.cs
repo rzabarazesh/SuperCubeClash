@@ -5,22 +5,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class ClickManager : MonoBehaviour,IPointerClickHandler {
-    private GameManager cm;
+    private static GameManager cm;
 
     private GameObject origin;
     
     public GameObject selector;
     private List<GameObject> quadlist;
     private static GameObject selectedQuad;
-    public GameObject canvas;
-    
+    //public GameObject canvas;
+
 
     void Start () {
         
         origin = GameObject.Find("GameManager");
         cm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        //canvas = GameObject.Find("canvas");
-        canvas.SetActive(false);
+
         quadlist = cm.getquads();
         
         
@@ -270,7 +269,8 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
     
     public void setSelectedQuad(GameObject obj)
     {
-        canvas.SetActive(false);
+        cm.hideArrows();
+        //canvas.SetActive(false);
         //addquad(obj);
         //Debug.Log(selectedObj.GetComponent<QuadManager>().mode);
         //Debug.Log(obj.GetComponent<QuadManager>().mode);
@@ -282,7 +282,7 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
         if (obj.GetComponent<QuadManager>().mode != "selected")
         {
             obj.GetComponent<QuadManager>().mode = "selected";
-            canvas.SetActive(true);
+            cm.showArrows(findFace(obj));
         }
         else
         {
@@ -331,7 +331,7 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
                     }
                     else if (o.CompareTag("enemy"))
                     {
-                        
+                        Debug.Log(o.transform.parent.name);
                         cm.addquad(o.transform.parent.gameObject);
 
                         if (o.transform.parent.gameObject.GetComponent<QuadManager>().mode != "enemy")
@@ -342,7 +342,14 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
                         }
                     }
 
+                    else if (o.CompareTag("potion"))
+                    {
 
+                        cm.addquad(o.transform.parent.gameObject);
+
+                        o.transform.parent.gameObject.GetComponent<QuadManager>().mode = "idle";
+                       
+                    }
 
                 }
             }
@@ -351,7 +358,7 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
             {   //tile is idle
                 if (clickObj.GetComponent<QuadManager>().mode == "idle" || clickObj.GetComponent<QuadManager>().mode == "selected")
                 {
-                    
+                    //showArrows(findFace(clickObj));
                     cm.setFace(findFace(clickObj));
                     setSelectedQuad(clickObj);
                     unHighlightAll();
@@ -360,12 +367,14 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
                 //tile is in moving mode
                 else if (clickObj.GetComponent<QuadManager>().mode == "hold" || clickObj.GetComponent<QuadManager>().mode == "enemy")
                 {
+                    cm.decMoves();
+                     
                     unHighlightAll();
                     setSelectedQuad(clickObj);
 
                     cm.getSelectedPiece().transform.SetParent(clickObj.transform);
 
-                    StartCoroutine(cm.MoveObject(cm.getSelectedPiece(), clickObj.transform.position, 1f));
+                    StartCoroutine(cm.MoveObject(cm.getSelectedPiece(), clickObj.transform.position, 0.5f));
                     //cm.getSelectedPiece().transform.position = clickObj.transform.position;
 
                 }
@@ -387,4 +396,5 @@ public class ClickManager : MonoBehaviour,IPointerClickHandler {
 
 
     }
+
 }

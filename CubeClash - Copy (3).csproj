@@ -78,6 +78,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ArrowDownClick.cs" />
+    <Compile Include="Assets\ArrowLeftClick.cs" />
+    <Compile Include="Assets\ArrowRightClick.cs" />
+    <Compile Include="Assets\ArrowUpClick.cs" />
+    <Compile Include="Assets\FarlandSkies\Demo\Scripts\Player\FPSWalkerEnhanced.cs" />
+    <Compile Include="Assets\FarlandSkies\Demo\Scripts\Player\SmoothMouseLook.cs" />
+    <Compile Include="Assets\FarlandSkies\Demo\Scripts\Skybox\SkyboxChanger.cs" />
+    <Compile Include="Assets\FarlandSkies\Demo\Scripts\Skybox\SkyboxRotator.cs" />
+    <Compile Include="Assets\Libs\AxeyWorks\Low Poly v2\Scripts\AxeyWorksMobileDistortion.cs" />
+    <Compile Include="Assets\Libs\AxeyWorks\Low Poly v2\Scripts\PolyWater.cs" />
     <Compile Include="Assets\OutlineEffect\LinkedSet.cs" />
     <Compile Include="Assets\OutlineEffect\Outline.cs" />
     <Compile Include="Assets\OutlineEffect\OutlineEffect.cs" />
@@ -96,6 +106,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
+    <None Include="Assets\Hand Painted Texture Pack - Natural Surfaces 1.10\Readme.txt" />
+    <None Include="Assets\Libs\AxeyWorks\Low Poly v2\Shaders\AxeyWorksDistortion.shader" />
+    <None Include="Assets\Libs\AxeyWorks\Low Poly v2\Shaders\AxeyWorksMobDist.cginc" />
+    <None Include="Assets\Libs\AxeyWorks\Low Poly v2\Shaders\AxeyWorksMobDist.shader" />
+    <None Include="Assets\Libs\AxeyWorks\Low Poly v2\Shaders\AxeyWorksPolyWaterBlendFoam.shader" />
     <None Include="Assets\OutlineEffect\Resources\OutlineBufferCullOffShader.shader" />
     <None Include="Assets\OutlineEffect\Resources\OutlineBufferShader.shader" />
     <None Include="Assets\OutlineEffect\Resources\OutlineShader.shader" />
